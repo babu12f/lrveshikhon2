@@ -11,6 +11,20 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', 'HomeController@index');
+Route::get('/about', function(){
+    return view('about');
+});
+
+Route::post('/user', function(){
+    return "POST Request";
+});
+Route::put('/user', function(){
+    return "PUT Request";
+});
+Route::patch('/user', function(){
+    return "PATCH Request";
+});
+Route::delete('/user', function(){
+    return "DELETe Request";
 });
