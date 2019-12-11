@@ -3,46 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    <title>Country Create</title>
+    <title>Country Edit</title>
 </head>
 <body>
     <div class="container">
         <div class="card">
             <div class="card-header">
-                <h2>Country Create Form</h2>
+                <h2>Country Edit</h2>
             </div>
             <div class="card-body">
-
-                @if (Session::has('success'))    
-                    <div class="alert alert-success">
-                        {{ Session::get('success') }}
-                    </div>
-                @endif
-
-                <form action="/country/create" method="POST">
+                <form action="/country/{{$country->id}}/edit" method="POST">
                     @csrf
                     
                     <div class="form-group">
                         <label for="name">Name</label>
-                        <input id="name" type="text" class="form-control" name="name">
+                        <input id="name" disabled type="text" class="form-control" name="name" value="{{$country->name}}">
                     </div>
 
                     <div class="form-group">
                         <label for="capital">Capital</label>
-                        <input id="capital" type="text" class="form-control" name="capital">
+                        <input id="capital" type="text" class="form-control" name="capital" value="{{$country->capital}}">
                     </div>
 
                     <div class="form-group">
                         <label for="population">Population</label>
-                        <input id="population" type="number" class="form-control" name="population">
+                        <input id="population" type="number" class="form-control" name="population" value="{{$country->population}}">
                     </div>
 
                     <div class="form-group">
                         <label for="currency">Currency</label>
-                        <input id="currency" type="text" class="form-control" name="currency">
+                        <input id="currency" type="text" class="form-control" name="currency" value="{{$country->currency}}">
                     </div>
 
-                    <button type="submit" class="btn btn-primary">Create</button>
+                    <button type="submit" class="btn btn-primary">Update</button>
                 </form>
             </div>
         </div>

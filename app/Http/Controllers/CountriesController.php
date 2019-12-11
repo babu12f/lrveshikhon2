@@ -42,7 +42,7 @@ class CountriesController extends Controller
 
         Country::create( request()->except('_token') );
 
-        return back();
+        return back()->with('success', 'Country Insert Successfully :)');
     }
 
     public function list()
@@ -54,5 +54,51 @@ class CountriesController extends Controller
         ]);
         // return view('country.list')->with('un', $user_name);
         // return view('country.list', compact('user_name'));
+    }
+
+    public function edit($id)
+    {
+        $country = Country::find($id);
+
+        return view('country.edit', compact('country'));
+    }
+
+    public function update($id)
+    {
+        $country = Country::find($id);
+
+        $country_capital = request('capital');
+        $country_population = request('population');
+        $country_currency = request('currency');
+
+        // $country->update([
+        //     'capital' => $country_capital,
+        //     'population' => $country_population,
+        //     'currency' => $country_currency
+        // ]);
+
+        $country->capital = $country_capital;
+        $country->population = $country_population;
+        $country->currency = $country_currency;
+
+        $country->save();
+
+        return redirect('/country');
+    }
+
+    public function delete($id)
+    {
+        $country = Country::find($id);
+
+        $country->delete();
+
+        return redirect('/country');
+    }
+
+    public function show($id)
+    {
+        $country = Country::find($id);
+
+        return view('country.show', compact('country'));   
     }
 }
