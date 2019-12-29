@@ -21,23 +21,24 @@ class UsersController extends Controller
         $user_pic = request('pic');
         $user_country = request('country');
 
-        $user = User::create([
-            'name' => $user_name,
-            'email' => $user_email
-        ]);
+        $user = new User();
+        $user->name = $user_name;
+        $user->email = $user_email;
+        $user->save();
 
-        $user->profile()->create([
-            'pic' => $user_pic,
-            'country' => $user_country
-        ]);
-
-        // 1st approach
-        // Profile::create([
-        //     'pic' => $user_pic,
-        //     'country' => $user_country,
-        //     'user_id' => $user->id
-        // ]);
+        $profile  = new Profile();
+        $profile->pic = $user_pic;
+        $profile->country = $user_country;
+        $profile->user = $user->id;
+        $profile->save();
 
         return back();
+    }
+
+    public function list()
+    {
+        $users = User::all();
+
+        return view('user.list', compact('users'));
     }
 }
